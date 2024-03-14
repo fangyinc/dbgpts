@@ -1,0 +1,11 @@
+[operator]
+label = "Awel List To String Operator"
+name = "awel_list_to_string_operator"
+version = "0.1.0"
+description = ""
+authors = []
+definition_type = "python"
+
+[python_config]
+
+[json_config]

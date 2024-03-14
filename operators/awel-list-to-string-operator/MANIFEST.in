@@ -1,0 +1,2 @@
+include dbgpts.toml
+include awel_list_to_string_operator/definition/*.json
