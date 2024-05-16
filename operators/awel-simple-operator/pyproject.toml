@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "workflow"
+name = "awel-simple-operator"
 version = "0.1.0"
 description = ""
-authors = []
+authors = ["Fangyin Cheng <staneyffer@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
