@@ -1,10 +1,6 @@
 from typing import Optional
-from dbgpt.agent import (
-    Action,
-    ActionOutput,
-    AgentResource,
-    ResourceType,
-)
+
+from dbgpt.agent import Action, ActionOutput, AgentResource, ResourceType
 from dbgpt.agent.util import cmp_string_equal
 from dbgpt.vis import Vis
 from pydantic import BaseModel, Field
@@ -40,12 +36,12 @@ class SummaryAction(Action[SummaryActionInput]):
         return SummaryActionInput
 
     async def run(
-            self,
-            ai_message: str,
-            resource: Optional[AgentResource] = None,
-            rely_action_out: Optional[ActionOutput] = None,
-            need_vis_render: bool = True,
-            **kwargs,
+        self,
+        ai_message: str,
+        resource: Optional[AgentResource] = None,
+        rely_action_out: Optional[ActionOutput] = None,
+        need_vis_render: bool = True,
+        **kwargs,
     ) -> ActionOutput:
         """Perform the action.
 
@@ -55,26 +51,27 @@ class SummaryAction(Action[SummaryActionInput]):
         extra_param = kwargs.get("action_extra_param_key", None)
         try:
             # Parse the input message
-            param: SummaryActionInput = self._input_convert(ai_message,
-                                                            SummaryActionInput)
+            param: SummaryActionInput = self._input_convert(
+                ai_message, SummaryActionInput
+            )
         except Exception:
             return ActionOutput(
                 is_exe_success=False,
                 content="The requested correctly structured answer could not be found, "
-                        f"ai message: {ai_message}",
+                f"ai message: {ai_message}",
             )
         # Check if the summary content is not related to user questions
         if param.summary and cmp_string_equal(
-                param.summary,
-                NOT_RELATED_MESSAGE,
-                ignore_case=True,
-                ignore_punctuation=True,
-                ignore_whitespace=True,
+            param.summary,
+            NOT_RELATED_MESSAGE,
+            ignore_case=True,
+            ignore_punctuation=True,
+            ignore_whitespace=True,
         ):
             return ActionOutput(
                 is_exe_success=False,
                 content="the provided text content is not related to user questions at "
-                        f"all. ai message: {ai_message}",
+                f"all. ai message: {ai_message}",
             )
         else:
             return ActionOutput(
